@@ -1,0 +1,29 @@
+# Thư viện chạy lab trên Windows với Python 3.11.
+# Cài BoxMOT riêng: python -m pip install --no-deps boxmot==10.0.42
+# Pin NumPy của BoxMOT cũ không hỗ trợ wheel Python 3.11.
+ultralytics>=8.4
+numpy==1.26.4
+opencv-python==4.10.0.84
+torch==2.5.1
+torchvision==0.20.1
+pyyaml
+lap>=0.4.0
+lapx
+scipy
+filterpy
+matplotlib
+pytest
+ftfy
+gdown
+GitPython
+loguru
+pandas
+pre-commit
+regex
+scikit-learn
+tensorboard
+yacs
+ipykernel
+nbclient
+nbformat
+setuptools<81

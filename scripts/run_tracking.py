@@ -20,12 +20,14 @@ https://google.github.io/styleguide/pyguide.html
 from __future__ import annotations
 
 import argparse
+import json
 import time
 from pathlib import Path
 from typing import Iterator, Tuple
 
 import cv2
 import numpy as np
+import torch
 from ultralytics import YOLO
 
 from boxmot.tracker_zoo import create_tracker, get_tracker_config
@@ -134,11 +136,12 @@ def run(args: argparse.Namespace) -> None:
     if args.tracker in USES_APPEARANCE:
         print(f"              tracker này dùng Re-ID: {REID_WEIGHTS.name} (tự tải nếu chưa có)")
     detector = YOLO(DETECTOR_WEIGHTS)
+    detector.to(args.device)
     tracker = create_tracker(
         tracker_type=args.tracker,
         tracker_config=get_tracker_config(args.tracker),
         reid_weights=REID_WEIGHTS,
-        device=args.device,
+        device=torch.device(args.device),
         half=False,
         per_class=False,
     )
@@ -150,11 +153,13 @@ def run(args: argparse.Namespace) -> None:
 
     for frame_idx, frame in iter_frames(source):
         if frame is None:
-            continue
+            raise ValueError(f"Không đọc được frame {frame_idx + 1} trong {source}")
         n_frames += 1
 
         dets = detect(detector, frame, conf=args.conf, iou=args.iou)
         tracks = tracker.update(dets, frame)
+        if n_frames % 50 == 0:
+            print(f"[{args.seq_name}] Đã xử lý {n_frames} frame", flush=True)
 
         for track in tracks:
             x1, y1, x2, y2, tid = track[0], track[1], track[2], track[3], track[4]
@@ -191,6 +196,14 @@ def run(args: argparse.Namespace) -> None:
 
     dt = time.time() - t0
     fps = n_frames / dt if dt > 0 else 0.0
+    (out_dir / f"{args.seq_name}_config.json").write_text(
+        json.dumps({
+            "tracker": args.tracker, "conf": args.conf, "iou": args.iou,
+            "device": args.device, "frames": n_frames, "seconds": dt,
+            "fps": fps, "max_frames": args.max_frames,
+            "detector": DETECTOR_WEIGHTS, "imgsz": IMG_SIZE,
+        }, ensure_ascii=False, indent=2), encoding="utf-8",
+    )
     print(
         f"\n[{args.seq_name}] tracker={args.tracker} conf={args.conf} iou={args.iou} "
         f"-> {n_frames} frame trong {dt:.1f}s ({fps:.1f} FPS)"

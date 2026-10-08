@@ -59,6 +59,34 @@ pip install -e TrackEval/
 
 Lần sau chỉ cần `conda activate cv_robotics_lab21`.
 
+Trên Windows PowerShell, đặt biến môi trường bằng cú pháp sau (thay đường dẫn thật):
+
+BoxMOT 10.0.42 ghim NumPy 1.23.1, không có wheel cho Python 3.11. Nếu bước
+cài môi trường gặp lỗi này, tạo môi trường và cài thư viện theo cách sau:
+
+```powershell
+conda create -n cv_robotics_lab21 python=3.11 pip --override-channels -c conda-forge -y
+conda activate cv_robotics_lab21
+python -m pip install -r requirements-windows.txt
+python -m pip install --no-deps boxmot==10.0.42
+python -m pip install -e ./TrackEval
+```
+
+Cách này giữ nguyên phiên bản BoxMOT và dùng NumPy 1.26.4. `pip check` vẫn có
+thể báo pin NumPy cũ của BoxMOT; kiểm tra hoạt động bằng test và lượt tracking
+ngắn. Không chạy lại `pip install -r requirements.txt` trong môi trường này.
+
+```powershell
+$env:LAB_DATA = "D:\duong_dan\lab_data"
+$env:PYTHONUTF8 = "1"
+python scripts/check_data.py --lab-data-root "$env:LAB_DATA"
+```
+
+Trong các lệnh bên dưới, thay `$LAB_DATA` bằng `$env:LAB_DATA`. Có thể viết lệnh
+trên một dòng; dấu `\` xuống dòng của Bash không dùng được trong PowerShell.
+Nếu gói dữ liệu thiếu `video_1/eval_config.json`, script chấm dùng cấu hình lab
+mặc định với split `train`; vẫn cần nhãn và `seqinfo.ini` của `video_1`.
+
 Tải ảnh năm video: [data_lab21.zip](https://drive.google.com/file/d/1UeVPQd6j5pSzxoJDcKJrerT9SL3vJLDt/view?usp=sharing). Giải nén, rồi gán `LAB_DATA` tới thư mục chứa `video_1` … `video_5`:
 
 ```bash

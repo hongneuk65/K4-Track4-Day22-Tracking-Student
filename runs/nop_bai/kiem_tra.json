@@ -1,0 +1,32 @@
+[
+  {
+    "video": "video_1",
+    "frames": 600,
+    "rows": 5179,
+    "valid": true
+  },
+  {
+    "video": "video_2",
+    "frames": 1050,
+    "rows": 13821,
+    "valid": true
+  },
+  {
+    "video": "video_3",
+    "frames": 837,
+    "rows": 4271,
+    "valid": true
+  },
+  {
+    "video": "video_4",
+    "frames": 900,
+    "rows": 5759,
+    "valid": true
+  },
+  {
+    "video": "video_5",
+    "frames": 750,
+    "rows": 3047,
+    "valid": true
+  }
+]

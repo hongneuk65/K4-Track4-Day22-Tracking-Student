@@ -1,0 +1,12 @@
+{
+  "tracker": "botsort",
+  "conf": 0.15,
+  "iou": 0.5,
+  "device": "cpu",
+  "frames": 1050,
+  "seconds": 352.6014127731323,
+  "fps": 2.977866684486547,
+  "max_frames": 0,
+  "detector": "yolo26n.pt",
+  "imgsz": 640
+}

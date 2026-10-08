@@ -1,0 +1,12 @@
+{
+  "tracker": "bytetrack",
+  "conf": 0.3,
+  "iou": 0.5,
+  "device": "cpu",
+  "frames": 837,
+  "seconds": 251.3854763507843,
+  "fps": 3.329547960169532,
+  "max_frames": 0,
+  "detector": "yolo26n.pt",
+  "imgsz": 640
+}

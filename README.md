@@ -59,4 +59,19 @@ python scripts/evaluate_practice.py \
 - `video_1.txt` … `video_5.txt` trong `runs/nop_bai/` (đủ frame, đúng tên).
 - `submission_template/BAO_CAO_mau.md` đã điền. Số HOTA / MOTA / IDF1 chỉ bắt buộc cho `video_1`.
 
+Bản đã hoàn thiện có đủ năm file TXT tại `runs/nop_bai/`, cấu hình từng video,
+`kiem_tra.json` và `video_1_metrics.json`. Báo cáo nằm tại
+`submission_template/BAO_CAO_mau.md` (bản sao: `BAO_CAO_hoan_thien.md`).
+Cần bổ sung tên nhóm và thành viên trước khi nộp chính thức.
+
 Chi tiết từng bước, sự cố, và lịch 2 giờ: [HUONG_DAN.md](HUONG_DAN.md).
+
+Trên máy Windows đã thiết lập môi trường, có thể kích hoạt nhanh từ thư mục repo:
+
+```powershell
+. .\scripts\activate_lab.ps1
+```
+
+Script đặt UTF-8 và tự nhận thư mục `data_lab21` cạnh repo nếu chưa có `LAB_DATA`.
+Nếu cài mới bằng Python 3.11, xem hướng dẫn `requirements-windows.txt` trong
+`HUONG_DAN.md` để tránh pin NumPy cũ của BoxMOT.
